@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Attendance Records</title>
+</head>
+<body>
+
+<h2>Attendance Records</h2>
+
+<table border="1" cellpadding="10">
+<tr>
+    <th>Student</th>
+    <th>Date</th>
+    <th>Status</th>
+</tr>
+
+{% for rec in records %}
+<tr>
+    <td>{{ rec.student.name }}</td>
+    <td>{{ rec.date }}</td>
+    <td>{{ rec.status }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+<br>
+
+<a href="/">Back to Home</a>
+
+</body>
+</html>
