@@ -1,31 +1,50 @@
+
+{% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Attendance System</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Home - Attendance</title>
+	<link rel="stylesheet" href="{% static 'attendance/style.css' %}">
+	<style>
+		.actions a { margin: 0 4px; }
+		.container { max-width: 900px; margin: 0 auto; }
+		.header { display:flex; justify-content:space-between; align-items:center; }
+	</style>
 </head>
 <body>
 
-<h2>Student List</h2>
+<div class="container">
+	<div class="header">
+		<h2>Attendance Home</h2>
+		<div>
+			<a href="{% url 'records' %}" style="background:#1976d2;">View Records</a>
+		</div>
+	</div>
 
-<table border="1" cellpadding="10">
-<tr>
-    <th>Name</th>
-    <th>Roll No</th>
-    <th>Action</th>
-</tr>
+	{% if students %}
+	<table border="1" cellpadding="10">
+		<tr>
+			<th>Student</th>
+			<th>Actions</th>
+		</tr>
+		{% for student in students %}
+		<tr>
+			<td>{{ student.name }}</td>
+			<td class="actions">
+				<a class="present" href="{% url 'mark' student.id 'present' %}">Present</a>
+				<a class="absent" href="{% url 'mark' student.id 'absent' %}">Absent</a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+	<p>No students found. Add students in the admin panel.</p>
+	{% endif %}
 
-{% for student in students %}
-<tr>
-    <td>{{ student.name }}</td>
-    <td>{{ student.roll_no }}</td>
-    <td>
-        <a href="{% url 'mark' student.id 'Present' %}">Present</a> |
-        <a href="{% url 'mark' student.id 'Absent' %}">Absent</a>
-    </td>
-</tr>
-{% endfor %}
-
-</table>
+</div>
 
 </body>
 </html>
+
